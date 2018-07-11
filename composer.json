@@ -1,0 +1,12 @@
+{
+    "name": "verzth/tcx",
+    "description": "Authentication Module for Client-Server Transaction (One Way - Two Way).",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Dodi Triwibowo",
+            "email": "silveriusdodi@gmail.com"
+        }
+    ],
+    "require": {}
+}
