@@ -11,6 +11,7 @@ namespace Verzth\TCX;
 
 use Illuminate\Support\ServiceProvider;
 use Verzth\TCX\Middleware\TransactionMiddleware;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
 
 class TCXServiceProvider extends ServiceProvider{
     /**
@@ -39,14 +40,14 @@ class TCXServiceProvider extends ServiceProvider{
      * Add the middleware to the router.
      *
      */
-    public function boot()
-    {
+    public function boot(){
         $this->publishes([$this->configPath() => $this->app->basePath().'/config/tcx.php']);
         // Lumen is limited.
         if ($this->isLumen()) {
+            $this->app->configure('tcx');
             $this->app->middleware([TransactionMiddleware::class]);
         } else {
-            $kernel = $this->app->make(Kernel::class);
+            $kernel = $this->app->make(HttpKernel::class);
             if (! $kernel->hasMiddleware(TransactionMiddleware::class)) {
                 $kernel->prependMiddleware(TransactionMiddleware::class);
             }
