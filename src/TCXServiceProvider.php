@@ -36,12 +36,12 @@ class TCXServiceProvider extends ServiceProvider{
     }
 
     /**
-     * Add the Cors middleware to the router.
+     * Add the middleware to the router.
      *
      */
     public function boot()
     {
-        $this->publishes([$this->configPath() => $this->app->basePath('config/tcx.php')]);
+        $this->publishes([$this->configPath() => $this->app->basePath().'/config/tcx.php']);
         // Lumen is limited.
         if ($this->isLumen()) {
             $this->app->middleware([TransactionMiddleware::class]);
