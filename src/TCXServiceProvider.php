@@ -27,19 +27,10 @@ class TCXServiceProvider extends ServiceProvider{
      */
     public function register()
     {
-        $this->mergeConfigFrom($this->configPath(), 'cors');
+        $this->mergeConfigFrom($this->configPath(), 'tcx');
 
         $this->app->singleton(TCX::class, function ($app) {
             $options = $app['config']->get('tcx');
-
-            if (isset($options['allowedOrigins'])) {
-                foreach ($options['allowedOrigins'] as $origin) {
-                    if (strpos($origin, '*') !== false) {
-                        $options['allowedOriginsPatterns'][] = $this->convertWildcardToPattern($origin);
-                    }
-                }
-            }
-
             return new TCX($options);
         });
     }
@@ -56,8 +47,6 @@ class TCXServiceProvider extends ServiceProvider{
             $this->app->middleware([TransactionMiddleware::class]);
         } else {
             $kernel = $this->app->make(Kernel::class);
-
-            // When the HandleCors middleware is not attached globally, add the PreflightCheck
             if (! $kernel->hasMiddleware(TransactionMiddleware::class)) {
                 $kernel->prependMiddleware(TransactionMiddleware::class);
             }
