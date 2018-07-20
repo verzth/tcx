@@ -42,6 +42,7 @@ class TCXServiceProvider extends ServiceProvider{
      */
     public function boot(){
         $this->publishes([$this->configPath() => $this->app->basePath().'/config/tcx.php']);
+        $this->publishes([$this->databasePath() => $this->app->basePath().'/database']);
         // Lumen is limited.
         if ($this->isLumen()) {
             $this->app->configure('tcx');
@@ -57,6 +58,10 @@ class TCXServiceProvider extends ServiceProvider{
     protected function configPath()
     {
         return __DIR__ . '/../config/tcx.php';
+    }
+    protected function databasePath()
+    {
+        return __DIR__ . '/../database';
     }
 
     protected function isLumen()
