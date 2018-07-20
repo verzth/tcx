@@ -50,7 +50,7 @@ class TCXServiceProvider extends ServiceProvider{
      */
     public function boot()
     {
-        $this->publishes([$this->configPath() => config_path('tcx.php')]);
+        $this->publishes([$this->configPath() => $this->app->basePath('config/tcx.php')]);
         // Lumen is limited.
         if ($this->isLumen()) {
             $this->app->middleware([TransactionMiddleware::class]);
