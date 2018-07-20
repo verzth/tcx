@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplicationsTable extends Migration{
+class ApplicationsTable extends Migration{
     private static $table = "tcx_groups";
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){
@@ -22,6 +22,7 @@ class CreateApplicationsTable extends Migration{
             $table->timestamps();
 
             $table->foreign("group_id")->references("id")->on("tcx_groups");
+            $table->index(['group_id','app_id']);
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAccessesTable extends Migration{
+class AccessesTable extends Migration{
     private static $table = "tcx_accesses";
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){
@@ -19,6 +19,8 @@ class CreateAccessesTable extends Migration{
 
             $table->foreign("group_id")->references("id")->on("tcx_groups");
             $table->foreign("application_id")->references("id")->on("tcx_applications");
+
+            $table->index(['group_id','application_id','app_id']);
         });
     }
 

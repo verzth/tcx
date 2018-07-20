@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupsTable extends Migration{
+class GroupsTable extends Migration{
     private static $table = "tcx_groups";
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){
@@ -19,6 +19,8 @@ class CreateGroupsTable extends Migration{
             $table->dateTime("suspended_at");
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index(['app_id']);
         });
     }
 
