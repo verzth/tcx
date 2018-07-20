@@ -50,12 +50,11 @@ class TCXServiceProvider extends ServiceProvider{
      */
     public function boot()
     {
+        $this->publishes([$this->configPath() => config_path('tcx.php')]);
         // Lumen is limited.
         if ($this->isLumen()) {
             $this->app->middleware([TransactionMiddleware::class]);
         } else {
-            $this->publishes([$this->configPath() => config_path('tcx.php')]);
-
             $kernel = $this->app->make(Kernel::class);
 
             // When the HandleCors middleware is not attached globally, add the PreflightCheck

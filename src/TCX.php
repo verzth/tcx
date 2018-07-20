@@ -15,4 +15,24 @@ class TCX{
         $this->options = $options;
     }
 
+    public function isEnable(){
+        return $this->options['enable'];
+    }
+    public function isDisable(){
+        return !$this->isEnable();
+    }
+
+    public function oneWay(){
+        return $this->options['method']['oneWay'];
+    }
+    public function twoWay(){
+        return $this->options['method']['twoWay'];
+    }
+    public function freeWay(){
+        return $this->options['method']['freeWay'];
+    }
+
+    public function isDebug(){
+        return $this->options['debug'];
+    }
 }

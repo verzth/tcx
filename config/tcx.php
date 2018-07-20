@@ -20,8 +20,7 @@ return [
     'method' => [
         'oneWay' => true,
         'twoWay' => true,
-        'masterKey' => true
+        'freeWay' => true
     ],
-    'except' => [],
     'debug' => true
 ];
