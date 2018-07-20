@@ -8,8 +8,10 @@
         "php": ">=7.0",
         "illuminate/support": "5.6.*",
         "illuminate/http": "5.6.*",
+        "illuminate/database": "5.6.*",
         "symfony/http-foundation": "^4",
-        "symfony/http-kernel": "^4"
+        "symfony/http-kernel": "^4",
+        "laravelista/lumen-vendor-publish": "^2.1"
     },
     "authors": [
         {
