@@ -1,7 +1,7 @@
 <?php
-namespace TCX\Middleware;
+namespace Verzth\TCX\Middleware;
 
-use TCX\TCX;
+use Verzth\TCX\TCX;
 
 class TransactionMiddleware{
     /** @var TCX $tcx */

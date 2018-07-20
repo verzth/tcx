@@ -6,11 +6,11 @@
  * Time: 10:37 AM
  */
 
-namespace TCX;
+namespace Verzth\TCX;
 
 
 use Illuminate\Support\ServiceProvider;
-use TCX\Middleware\TransactionMiddleware;
+use Verzth\TCX\Middleware\TransactionMiddleware;
 
 class TCXServiceProvider extends ServiceProvider{
     /**
@@ -50,7 +50,7 @@ class TCXServiceProvider extends ServiceProvider{
      */
     public function boot()
     {
-        // Lumen is limited, so always add the preflight.
+        // Lumen is limited.
         if ($this->isLumen()) {
             $this->app->middleware([TransactionMiddleware::class]);
         } else {

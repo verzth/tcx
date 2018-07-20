@@ -6,7 +6,7 @@
  * Time: 11:01 AM
  */
 
-namespace TCX;
+namespace Verzth\TCX;
 
 
 class TCX{
