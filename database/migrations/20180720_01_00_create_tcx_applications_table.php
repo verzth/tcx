@@ -9,7 +9,7 @@ class TCXApplicationsTable extends Migration{
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){
             $table->increments("id");
-            $table->unsignedInteger("parent_id");
+            $table->unsignedInteger("parent_id")->nullable(true);
             $table->string("name",30);
             $table->string("app_id",20)->nullable(false);
             $table->string("app_private",32)->nullable(false);
