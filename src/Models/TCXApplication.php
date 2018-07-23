@@ -25,4 +25,19 @@ class TCXApplication extends Model{
         'isActive' => 'boolean',
         'isSuspend' => 'boolean'
     ];
+
+    public function accesses(){
+        return $this->hasMany('Verzth\TCX\Models\TCXAccess','application_id');
+    }
+    public function mkas(){
+        return $this->hasMany('Verzth\TCX\Models\TCXMKA','application_id');
+    }
+
+    public function scopeActive($query,$state=true){
+        return $query->where('isActive',$state);
+    }
+
+    public function scopeSuspended($query,$state=true){
+        return $query->where('isSuspend',$state);
+    }
 }

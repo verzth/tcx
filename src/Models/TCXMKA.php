@@ -9,6 +9,7 @@
 namespace Verzth\TCX\Models;
 
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class TCXMKA extends Model{
@@ -21,4 +22,20 @@ class TCXMKA extends Model{
     protected $casts = [
         'isValid' => 'boolean'
     ];
+
+    public function application(){
+        return $this->belongsTo('Verzth\TCX\Models\TCXApplication','application_id');
+    }
+
+    public function scopeValid($query,$state=true){
+        if($state){
+            return $query->where(function ($q)use($state){
+                $q->where('isValid',$state)->where('expired_at','>=',Carbon::now());
+            });
+        }else{
+            return $query->where(function ($q)use($state){
+                $q->where('isValid',$state)->orWhere('expired_at','<',Carbon::now());
+            });
+        }
+    }
 }
