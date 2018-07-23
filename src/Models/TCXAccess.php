@@ -27,6 +27,14 @@ class TCXAccess extends Model{
         return $this->belongsTo('Verzth\TCX\Models\TCXApplication','application_id');
     }
 
+    public function scopeToken($query,$value){
+        return $query->where('token',strtolower($value));
+    }
+
+    public function scopeRefresh($query,$value){
+        return $query->where('refresh',strtolower($value));
+    }
+
     public function scopeValid($query,$state=true){
         if($state){
             return $query->where(function ($q)use($state){

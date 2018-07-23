@@ -53,6 +53,13 @@ class TCXServiceProvider extends ServiceProvider{
                 $kernel->prependMiddleware(TransactionMiddleware::class);
             }
         }
+
+        $this->app->router->group([
+            'prefix'=>'tcx',
+            'namespace'=>'Verzth\TCX\Controllers'
+        ],function ($router){
+            $router->post('authorize','TCXController@authorize');
+        });
     }
 
     protected function configPath()
