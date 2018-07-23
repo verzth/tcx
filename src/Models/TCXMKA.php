@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Dodi
- * Date: 7/20/2018
- * Time: 12:09 PM
+ * Date: 7/23/2018
+ * Time: 9:33 AM
  */
 
 namespace Verzth\TCX\Models;
@@ -11,10 +11,10 @@ namespace Verzth\TCX\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TCXAccess extends Model{
-    protected $table = "tcx_accesses";
+class TCXMKA extends Model{
+    protected $table = "tcx_mkas";
     protected $fillable = [
-        'id','application_id','token','refresh',
+        'id','application_id','token',
         'isValid','expired_at'
     ];
 

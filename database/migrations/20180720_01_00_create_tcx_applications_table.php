@@ -9,7 +9,7 @@ class TCXApplicationsTable extends Migration{
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){
             $table->increments("id");
-            $table->unsignedInteger("group_id");
+            $table->unsignedInteger("parent_id");
             $table->string("name",30);
             $table->string("app_id",20)->nullable(false);
             $table->string("app_private",32)->nullable(false);
@@ -21,8 +21,8 @@ class TCXApplicationsTable extends Migration{
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign("group_id")->references("id")->on("tcx_groups");
-            $table->index(['group_id','app_id']);
+            $table->foreign("parent_id")->references("id")->on(self::$table);
+            $table->index(['parent_id','app_id']);
         });
     }
 

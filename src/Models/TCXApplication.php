@@ -9,7 +9,20 @@
 namespace Verzth\TCX\Models;
 
 
-class TCXApplication
-{
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
+class TCXApplication extends Model{
+    use SoftDeletes;
+    protected $table = "tcx_applications";
+    protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'id','application_id','app_id','app_private','app_public',
+        'isActive','activated_at','isSuspend','suspended_at'
+    ];
+
+    protected $casts = [
+        'isActive' => 'boolean',
+        'isSuspend' => 'boolean'
+    ];
 }
