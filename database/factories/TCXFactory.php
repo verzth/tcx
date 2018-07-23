@@ -3,7 +3,7 @@
 $factory->define(\Verzth\TCX\Models\TCXApplication::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'app_id' => $faker->unique()->randomAscii,
+        'app_id' => $faker->unique()->userName,
         'app_private' => $faker->unique()->md5,
         'app_public' => $faker->unique()->md5,
         'isActive' => false,
@@ -25,7 +25,6 @@ $factory->state(\Verzth\TCX\Models\TCXApplication::class,'suspended',[
 $factory->define(\Verzth\TCX\Models\TCXMKA::class, function (Faker\Generator $faker) {
     return [
         'token' => $faker->unique()->sha1,
-        'isActive' => true,
         'isValid'=>true,
         'expired_at' => \Carbon\Carbon::now()->addYear(1)
     ];
