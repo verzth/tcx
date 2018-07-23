@@ -23,6 +23,8 @@ class TCXApplicationsTable extends Migration{
 
             $table->foreign("parent_id")->references("id")->on(self::$table);
             $table->index(['parent_id','app_id']);
+
+            $table->engine = "InnoDB";
         });
     }
 

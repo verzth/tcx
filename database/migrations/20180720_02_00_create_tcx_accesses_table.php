@@ -19,6 +19,8 @@ class TCXAccessesTable extends Migration{
             $table->foreign("application_id")->references("id")->on("tcx_applications");
 
             $table->index(['application_id','token','refresh']);
+
+            $table->engine = "InnoDB";
         });
     }
 
