@@ -3,10 +3,10 @@ namespace Verzth\TCX\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Verzth\TCX\Facades\TCX;
 use Verzth\TCX\Models\TCXAccess;
 use Verzth\TCX\Models\TCXApplication;
 use Verzth\TCX\Models\TCXMKA;
-use Verzth\TCX\TCX;
 use Verzth\TCX\Traits\TCXResponse;
 
 class TransactionMiddleware{
@@ -19,7 +19,7 @@ class TransactionMiddleware{
     }
 
     public function __construct(TCX $tcx){
-        $this->__trConstruct();
+        $this->__trConstruct($tcx);
         $this->tcx = $tcx;
     }
 
