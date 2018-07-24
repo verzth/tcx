@@ -14,13 +14,13 @@ use Verzth\TCX\Facades\TCX;
 trait TCXResponse{
     protected $result;
     protected $debug;
-    public function __construct(){
+    public function __construct(TCX $tcx){
         $this->result = new stdClass();
         $this->result->status = 0;
         $this->result->status_number = '000';
         $this->result->status_code = 'XXXXXX';
         $this->result->status_message = 'Unknown Error';
-        $this->debug = TCX::isDebug();
+        $this->debug = $tcx::isDebug();
     }
 
     public function debug($message,bool $log = true){
