@@ -37,7 +37,7 @@ class TCXApplication extends Model{
         return $query->where('isActive',$state);
     }
 
-    public function scopeSuspended($query,$state=true){
+    public function scopeSuspend($query,$state=true){
         return $query->where('isSuspend',$state);
     }
 }
