@@ -79,6 +79,8 @@ class TCX{
                 $spPass = explode(":",$dePass);
                 if(count($spPass)==2){
                     $_PASS_ = sha1(TCXFacade::getTokenKey() . $find->app_public . $spPass[1]);
+                    tcxLogFile($_PASS_);
+                    tcxLogFile($spPass[1]);
                     if ($_PASS_ == $spPass[0]) return $find;
                 }
             }
