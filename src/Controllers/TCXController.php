@@ -30,7 +30,7 @@ class TCXController extends Controller{
                     $this->replySuccess('701','TCXSSS','Authentication Success',[
                         'token' => $token->token,
                         'refresh' => $token->refresh,
-                        'expired_at' => $token->expired_at,
+                        'expired_at' => $token->expired_at->format("Y-m-d H:i:s"),
                     ]);
                 }catch (\Exception $e){
                     $this->replyFailed('003','TCXERX','Server Fault');
