@@ -78,10 +78,11 @@ class TCX{
                 $dePass = base64_decode($appPass);
                 $spPass = explode(":",$dePass);
                 if(count($spPass)==2){
-                    $_PASS_ = sha1(TCXFacade::getTokenKey() . $find->app_public . $spPass[1]);
+                    $_PASS_ = sha1(TCXFacade::getTokenKey() . $find->app_public . strtolower($spPass[1]));
                     tcxLogFile($_PASS_);
-                    tcxLogFile($spPass[1]);
-                    if ($_PASS_ == $spPass[0]) return $find;
+                    tcxLogFile(strtolower($spPass[0]));
+                    tcxLogFile(strtolower($spPass[1]));
+                    if ($_PASS_ == strtolower($spPass[0])) return $find;
                 }
             }
         }
