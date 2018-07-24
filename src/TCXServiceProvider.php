@@ -58,7 +58,7 @@ class TCXServiceProvider extends ServiceProvider{
             'prefix'=>'tcx',
             'namespace'=>'Verzth\TCX\Controllers'
         ],function ($router){
-            $router->post('authorize','TCXController@authorize');
+            require __DIR__.'/routes/route.php';
         });
     }
 

@@ -47,7 +47,25 @@ class TCXController extends Controller{
 
     public function reauthorize(Request $request){
         if($request->filled(['app_id','token'])){
+            if($token=TCX::checkAppAccessRefresh($request->get('app_id'),$request->get('token'))){
+                try {
+                    $token->fill([
+                        'refresh' => tcxRandomString(40),
+                        'isValid' => true,
+                        'expired_at' => Carbon::now()->addSeconds(TCX::getTokenTimeout())
+                    ])->save();
 
+                    $this->replySuccess('701','TCXSSS','Token refreshed',[
+                        'refresh' => $token->refresh,
+                        'expired_at' => $token->expired_at->format("Y-m-d H:i:s"),
+                    ]);
+                }catch (\Exception $e){
+                    $this->replyFailed('003','TCXERX','Server Fault');
+                    $this->debug($e->getMessage());
+                }
+            }else{
+                $this->replyFailed('002','TCXAFX','Authentication Failed');
+            }
         }else{
             $this->replyFailed('001','TCXCRQ','Credentials Required');
         }

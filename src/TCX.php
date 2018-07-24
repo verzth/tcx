@@ -99,6 +99,16 @@ class TCX{
         return false;
     }
 
+    public static function checkAppAccessRefresh($appId,$token){
+        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
+        if($find){
+            $deToken = base64_decode($token);
+            $onToken = TCXAccess::refreshToken($deToken)->first();
+            if($onToken)return $onToken;
+        }
+        return false;
+    }
+
     public static function checkMasterKey($appId,$token){
         $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
         if($find){

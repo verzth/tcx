@@ -31,7 +31,7 @@ class TCXAccess extends Model{
         return $query->where('token',strtolower($value));
     }
 
-    public function scopeRefresh($query,$value){
+    public function scopeRefreshToken($query,$value){
         return $query->where('refresh',strtolower($value));
     }
 
