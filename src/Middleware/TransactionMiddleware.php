@@ -1,7 +1,7 @@
 <?php
 namespace Verzth\TCX\Middleware;
 
-use TCX;
+use Verzth\TCX\TCX;
 use Illuminate\Http\Request;
 use Verzth\TCX\Traits\TCXResponse;
 
