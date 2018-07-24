@@ -3,7 +3,6 @@ namespace Verzth\TCX\Middleware;
 
 use TCX;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Verzth\TCX\Traits\TCXResponse;
 
 class TransactionMiddleware{
@@ -80,10 +79,10 @@ class TransactionMiddleware{
                     $this->replyFailed('101', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
-                return Response::jsonp($request->get("callback"),$this->result);
+                return response()->jsonp($request->get("callback"),$this->result);
             }else{
                 $this->replyFailed('100','TCXREQ','TCX Authentication Required');
-                return Response::jsonp($request->get("callback"),$this->result);
+                return response()->jsonp($request->get("callback"),$this->result);
             }
         }else{
             return $next($request);
