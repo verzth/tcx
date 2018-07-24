@@ -20,7 +20,7 @@ trait TCXResponse{
         $this->result->status_number = '000';
         $this->result->status_code = 'XXXXXX';
         $this->result->status_message = 'Unknown Error';
-        $this->debug = $tcx::isDebug();
+        $this->debug = $tcx->isDebug();
     }
 
     public function debug($message,bool $log = true){
