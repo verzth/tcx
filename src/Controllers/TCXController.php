@@ -21,7 +21,7 @@ class TCXController extends Controller{
         }else{
             $this->replyFailed('001','TCXCRQ','Credentials Required');
         }
-        return response()->jsonp($request->get('callback'),$this->result);
+        return response()->json($this->result)->setCallback($request->get('callback'));
     }
 
     public function reauthorize(Request $request){
@@ -30,6 +30,6 @@ class TCXController extends Controller{
         }else{
             $this->replyFailed('001','TCXCRQ','Credentials Required');
         }
-        return response()->jsonp($request->get('callback'),$this->result);
+        return response()->json($this->result)->setCallback($request->get('callback'));
     }
 }

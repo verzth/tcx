@@ -79,10 +79,10 @@ class TransactionMiddleware{
                     $this->replyFailed('101', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
-                return response()->jsonp($request->get("callback"),$this->result);
+                return response()->json($this->result)->setCallback($request->get('callback'));
             }else{
                 $this->replyFailed('100','TCXREQ','TCX Authentication Required');
-                return response()->jsonp($request->get("callback"),$this->result);
+                return response()->json($this->result)->setCallback($request->get('callback'));
             }
         }else{
             return $next($request);
