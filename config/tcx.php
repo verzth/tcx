@@ -14,10 +14,11 @@ return [
     */
 
 
-    'masterKey' => '',
+    'masterKey' => 'masterKey', //REPLACE IT WITH YOURS
     'token' => [
-        'type' => 'time',
-        'key' => ''
+        'type' => 'key', // 'key', 'time'
+        'key' => 'tcxKey', // REPLACE IT WITH YOURS
+        'timeout' => 7200, // In seconds, default 7200 seconds or 2 hours
     ],
     'enable' => true,
     'method' => [

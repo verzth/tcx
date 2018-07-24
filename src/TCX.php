@@ -51,11 +51,14 @@ class TCX{
         return $this->options['method']['freeWay'];
     }
 
-    public function getMethod(){
-        return $this->options['method']['type'];
+    public function getTokenType(){
+        return $this->options['token']['type'];
     }
-    public function getMethodKey(){
-        return $this->options['method']['key'];
+    public function getTokenKey(){
+        return $this->options['token']['key'];
+    }
+    public function getTokenTimeout(){
+        return $this->options['token']['timeout'];
     }
 
     public function isDebug(){
@@ -71,12 +74,14 @@ class TCX{
     public static function checkAppPass($appId,$appPass){
         $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
         if($find){
-            if(TCXFacade::getMethod()=='key'){
+            if(TCXFacade::getTokenType()=='key'){
                 $dePass = base64_decode($appPass);
                 $spPass = explode(":",$dePass);
                 if(count($spPass)==2){
-                    $_PASS_ = sha1($spPass[1].$find->app_public.$spPass[1]);
-                    if($_PASS_==$spPass[0])return $find;
+                    if(TCXFacade::getTokenKey()==$spPass[1]) {
+                        $_PASS_ = sha1(TCXFacade::getTokenKey() . $find->app_public . TCXFacade::getTokenKey());
+                        if ($_PASS_ == $spPass[0]) return $find;
+                    }
                 }
             }
         }
