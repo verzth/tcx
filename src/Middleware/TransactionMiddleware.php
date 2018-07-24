@@ -21,15 +21,22 @@ class TransactionMiddleware{
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
+     * @param $type 'all', 'owtc, 'twtc', 'ftc' or can be joined with |
      * @return mixed
      */
-    public function handle($request, \Closure $next){
+    public function handle($request, \Closure $next,$type='all'){
         if(!$this->shouldPassThrough($request)){
             if($request->hasHeader(TCX::TCX_TYPE) && $request->hasHeader(TCX::TCX_APP_ID)){
                 $tcxType = strtoupper($request->header(TCX::TCX_TYPE));
                 $tcxAppId = strtolower($request->header(TCX::TCX_APP_ID));
 
-                if($tcxType==TCX::TCX_TYPE_OWTC || $tcxType==TCX::TCX_TYPE_TWTC || $tcxType==TCX::TCX_TYPE_FTC) {
+                $typeSupport = false;
+                if($type=='all' && ($tcxType==TCX::TCX_TYPE_OWTC || $tcxType==TCX::TCX_TYPE_TWTC || $tcxType==TCX::TCX_TYPE_FTC)) $typeSupport = true;
+                elseif(strpos($type,'owtc') && $tcxType==TCX::TCX_TYPE_OWTC) $typeSupport = true;
+                elseif(strpos($type,'twtc') && $tcxType==TCX::TCX_TYPE_TWTC) $typeSupport = true;
+                elseif(strpos($type,'ftc') && $tcxType==TCX::TCX_TYPE_FTC) $typeSupport = true;
+
+                if($typeSupport) {
                     if (TCX::checkAppId($tcxAppId)) {
                         if ($request->hasHeader(TCX::TCX_APP_PASS)) {
                             $tcxAppPass = $request->header(TCX::TCX_APP_PASS);
