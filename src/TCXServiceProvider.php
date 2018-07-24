@@ -46,12 +46,6 @@ class TCXServiceProvider extends ServiceProvider{
         // Lumen is limited.
         if ($this->isLumen()) {
             $this->app->configure('tcx');
-            $this->app->middleware([TransactionMiddleware::class]);
-        } else {
-            $kernel = $this->app->make(HttpKernel::class);
-            if (! $kernel->hasMiddleware(TransactionMiddleware::class)) {
-                $kernel->prependMiddleware(TransactionMiddleware::class);
-            }
         }
 
         $this->app->router->group([
