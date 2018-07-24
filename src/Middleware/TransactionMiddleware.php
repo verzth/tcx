@@ -32,9 +32,9 @@ class TransactionMiddleware{
 
                 $typeSupport = false;
                 if($type=='all' && ($tcxType==TCX::TCX_TYPE_OWTC || $tcxType==TCX::TCX_TYPE_TWTC || $tcxType==TCX::TCX_TYPE_FTC)) $typeSupport = true;
-                elseif(strpos($type,'owtc') && $tcxType==TCX::TCX_TYPE_OWTC) $typeSupport = true;
-                elseif(strpos($type,'twtc') && $tcxType==TCX::TCX_TYPE_TWTC) $typeSupport = true;
-                elseif(strpos($type,'ftc') && $tcxType==TCX::TCX_TYPE_FTC) $typeSupport = true;
+                elseif(strpos($type,'owtc')!==false && $tcxType==TCX::TCX_TYPE_OWTC) $typeSupport = true;
+                elseif(strpos($type,'twtc')!==false && $tcxType==TCX::TCX_TYPE_TWTC) $typeSupport = true;
+                elseif(strpos($type,'ftc')!==false && $tcxType==TCX::TCX_TYPE_FTC) $typeSupport = true;
 
                 if($typeSupport) {
                     if (TCX::checkAppId($tcxAppId)) {
