@@ -11,7 +11,6 @@ namespace Verzth\TCX\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Response;
 use Verzth\TCX\Traits\TCXResponse;
 
 class TCXController extends Controller{
