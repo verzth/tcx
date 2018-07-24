@@ -1,26 +1,20 @@
 <?php
 namespace Verzth\TCX\Middleware;
 
+use TCX;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Verzth\TCX\Models\TCXAccess;
-use Verzth\TCX\Models\TCXApplication;
-use Verzth\TCX\Models\TCXMKA;
-use Verzth\TCX\TCX;
 use Verzth\TCX\Traits\TCXResponse;
 
 class TransactionMiddleware{
-    /** @var TCX $tcx */
-    protected $tcx;
     protected $except = [];
 
     use TCXResponse {
         TCXResponse::__construct as private __trConstruct;
     }
 
-    public function __construct(TCX $tcx){
-        $this->__trConstruct($tcx);
-        $this->tcx = $tcx;
+    public function __construct(){
+        $this->__trConstruct();
     }
 
     /**
@@ -37,10 +31,10 @@ class TransactionMiddleware{
                 $tcxAppId = strtolower($request->header(TCX::TCX_APP_ID));
 
                 if($tcxType==TCX::TCX_TYPE_OWTC || $tcxType==TCX::TCX_TYPE_TWTC || $tcxType==TCX::TCX_TYPE_FTC) {
-                    if ($this->checkAppId($tcxAppId)) {
+                    if (TCX::checkAppId($tcxAppId)) {
                         if ($request->hasHeader(TCX::TCX_APP_PASS)) {
                             $tcxAppPass = $request->header(TCX::TCX_APP_PASS);
-                            if (!$_TCX_ = $this->checkAppPass($tcxAppId, $tcxAppPass)) GOTO PASSFAIL;
+                            if (!$_TCX_ = TCX::checkAppPass($tcxAppId, $tcxAppPass)) GOTO PASSFAIL;
 
                             switch ($tcxType) {
                                 case TCX::TCX_TYPE_OWTC :{
@@ -57,7 +51,7 @@ class TransactionMiddleware{
                                 case TCX::TCX_TYPE_TWTC :{
                                     if ($request->hasHeader(TCX::TCX_TOKEN)) {
                                         $tcxToken = $request->header(TCX::TCX_TOKEN);
-                                        if (!$this->checkAppAccess($tcxAppId, $tcxToken)) GOTO TOKENFAIL;
+                                        if (!TCX::checkAppAccess($tcxAppId, $tcxToken)) GOTO TOKENFAIL;
                                         GOTO PASSTHROUGH;
                                     }else{
                                         TOKENFAIL:
@@ -67,7 +61,7 @@ class TransactionMiddleware{
                                 case TCX::TCX_TYPE_FTC :{
                                     if ($request->hasHeader(TCX::TCX_TOKEN)) {
                                         $tcxToken = $request->header(TCX::TCX_TOKEN);
-                                        if (!$this->checkMasterKey($tcxAppId, $tcxToken)) GOTO MASTERFAIL;
+                                        if (!TCX::checkMasterKey($tcxAppId, $tcxToken)) GOTO MASTERFAIL;
                                         GOTO PASSTHROUGH;
                                     }else{
                                         MASTERFAIL:
@@ -94,47 +88,6 @@ class TransactionMiddleware{
         }else{
             return $next($request);
         }
-    }
-
-    private function checkAppId($appId){
-        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
-        if($find)return $find;
-        else return false;
-    }
-
-    private function checkAppPass($appId,$appPass){
-        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
-        if($find){
-            if($this->tcx->getMethod()=='key'){
-                $dePass = base64_decode($appPass);
-                $spPass = explode(":",$dePass);
-                if(count($spPass)==2){
-                    $_PASS_ = sha1($spPass[1].$find->app_public.$spPass[1]);
-                    if($_PASS_==$spPass[0])return $find;
-                }
-            }
-        }
-        return false;
-    }
-
-    private function checkAppAccess($appId,$token){
-        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
-        if($find){
-            $deToken = base64_decode($token);
-            $onToken = TCXAccess::token($deToken)->valid()->first();
-            if($onToken)return $onToken;
-        }
-        return false;
-    }
-
-    private function checkMasterKey($appId,$token){
-        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
-        if($find){
-            $deToken = base64_decode($token);
-            $onToken = TCXMKA::token($deToken)->valid()->first();
-            if($onToken)return $onToken;
-        }
-        return false;
     }
 
     protected function shouldPassThrough(Request $request){

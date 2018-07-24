@@ -24,4 +24,13 @@ class TCXController extends Controller{
         }
         return Response::jsonp($request->get('callback'),$this->result);
     }
+
+    public function reauthorize(Request $request){
+        if($request->has(['app_id','token'])){
+
+        }else{
+            $this->replyFailed('001','TCXCRQ','Credentials Required');
+        }
+        return Response::jsonp($request->get('callback'),$this->result);
+    }
 }

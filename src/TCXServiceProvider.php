@@ -30,7 +30,7 @@ class TCXServiceProvider extends ServiceProvider{
     {
         $this->mergeConfigFrom($this->configPath(), 'tcx');
 
-        $this->app->singleton(TCX::class, function ($app) {
+        $this->app->bind("tcx", function ($app) {
             $options = $app['config']->get('tcx');
             return new TCX($options);
         });

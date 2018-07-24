@@ -8,6 +8,10 @@
 
 namespace Verzth\TCX;
 
+use TCX as TCXFacade;
+use Verzth\TCX\Models\TCXAccess;
+use Verzth\TCX\Models\TCXApplication;
+use Verzth\TCX\Models\TCXMKA;
 
 class TCX{
     const TCX_TYPE = 'X-TCX-TYPE';
@@ -56,5 +60,46 @@ class TCX{
 
     public function isDebug(){
         return $this->options['debug'];
+    }
+
+    public static function checkAppId($appId){
+        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
+        if($find)return $find;
+        else return false;
+    }
+
+    public static function checkAppPass($appId,$appPass){
+        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
+        if($find){
+            if(TCXFacade::getMethod()=='key'){
+                $dePass = base64_decode($appPass);
+                $spPass = explode(":",$dePass);
+                if(count($spPass)==2){
+                    $_PASS_ = sha1($spPass[1].$find->app_public.$spPass[1]);
+                    if($_PASS_==$spPass[0])return $find;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static function checkAppAccess($appId,$token){
+        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
+        if($find){
+            $deToken = base64_decode($token);
+            $onToken = TCXAccess::token($deToken)->valid()->first();
+            if($onToken)return $onToken;
+        }
+        return false;
+    }
+
+    public static function checkMasterKey($appId,$token){
+        $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
+        if($find){
+            $deToken = base64_decode($token);
+            $onToken = TCXMKA::token($deToken)->valid()->first();
+            if($onToken)return $onToken;
+        }
+        return false;
     }
 }
