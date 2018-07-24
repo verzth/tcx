@@ -24,7 +24,7 @@ class TransactionMiddleware{
      * @return mixed
      */
     public function handle($request, \Closure $next){
-        if($this->shouldPassThrough($request)){
+        if(!$this->shouldPassThrough($request)){
             if($request->hasHeader(TCX::TCX_TYPE) && $request->hasHeader(TCX::TCX_APP_ID)){
                 $tcxType = strtoupper($request->header(TCX::TCX_TYPE));
                 $tcxAppId = strtolower($request->header(TCX::TCX_APP_ID));
