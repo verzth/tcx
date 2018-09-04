@@ -60,7 +60,7 @@ class TCXMiddleware{
                                         GOTO PASSTHROUGH;
                                     }else{
                                         TOKENFAIL:
-                                        $this->replyFailed('500102', 'TCXTFX', 'TCX Token did not valid');
+                                        $this->replyFailed('505002', 'TCXTFX', 'TCX Token did not valid');
                                     }
                                 }break;
                                 case TCX::TCX_TYPE_FTC :{
@@ -70,24 +70,24 @@ class TCXMiddleware{
                                         GOTO PASSTHROUGH;
                                     }else{
                                         MASTERFAIL:
-                                        $this->replyFailed('500101', 'TCXMKF', 'TCX Master Key did not valid');
+                                        $this->replyFailed('505001', 'TCXMKF', 'TCX Master Key did not valid');
                                     }
                                 }break;
                             }
                         } else {
                             PASSFAIL:
-                            $this->replyFailed('500100', 'TCXPFX', 'TCX Pass did not match');
+                            $this->replyFailed('505000', 'TCXPFX', 'TCX Pass did not match');
                         }
                     } else {
-                        $this->replyFailed('400100', 'TCXAFX', 'TCX Authentication Failed');
+                        $this->replyFailed('405000', 'TCXAFX', 'TCX Authentication Failed');
                     }
                 }else{
-                    $this->replyFailed('200100', 'TCXRJC', 'TCX Authentication Rejected');
+                    $this->replyFailed('205000', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
                 return response()->json($this->result)->setCallback($request->get('callback'));
             }else{
-                $this->replyFailed('700100','TCXREQ','TCX Authentication Required');
+                $this->replyFailed('705000','TCXREQ','TCX Authentication Required');
                 return response()->json($this->result)->setCallback($request->get('callback'));
             }
         }else{
