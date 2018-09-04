@@ -10,7 +10,7 @@ namespace Verzth\TCX;
 
 
 use Illuminate\Support\ServiceProvider;
-use Verzth\TCX\Middleware\TransactionMiddleware;
+use Verzth\TCX\Middleware\TCXMiddleware;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 
 class TCXServiceProvider extends ServiceProvider{

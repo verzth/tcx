@@ -27,20 +27,20 @@ class TCXController extends Controller{
                         'expired_at' => Carbon::now()->addSeconds(TCX::getTokenTimeout())
                     ]);
 
-                    $this->replySuccess('701','TCXSSS','Authentication Success',[
+                    $this->replySuccess('F00203','TCXSSS','Authentication Success',[
                         'token' => $token->token,
                         'refresh' => $token->refresh,
                         'expired_at' => $token->expired_at->format("Y-m-d H:i:s"),
                     ]);
                 }catch (\Exception $e){
-                    $this->replyFailed('003','TCXERX','Server Fault');
+                    $this->replyFailed('100202','TCXERX','Server Fault');
                     $this->debug($e->getMessage());
                 }
             }else{
-                $this->replyFailed('002','TCXAFX','Authentication Failed');
+                $this->replyFailed('500201','TCXAFX','Authentication Failed');
             }
         }else{
-            $this->replyFailed('001','TCXCRQ','Credentials Required');
+            $this->replyFailed('400200','TCXCRQ','Credentials Required');
         }
         return response()->json($this->result)->setCallback($request->get('callback'));
     }
@@ -55,19 +55,19 @@ class TCXController extends Controller{
                         'expired_at' => Carbon::now()->addSeconds(TCX::getTokenTimeout())
                     ])->save();
 
-                    $this->replySuccess('701','TCXSSS','Token refreshed',[
+                    $this->replySuccess('F00203','TCXSSS','Token refreshed',[
                         'refresh' => $token->refresh,
                         'expired_at' => $token->expired_at->format("Y-m-d H:i:s"),
                     ]);
                 }catch (\Exception $e){
-                    $this->replyFailed('003','TCXERX','Server Fault');
+                    $this->replyFailed('100202','TCXERX','Server Fault');
                     $this->debug($e->getMessage());
                 }
             }else{
-                $this->replyFailed('002','TCXAFX','Authentication Failed');
+                $this->replyFailed('500201','TCXAFX','Authentication Failed');
             }
         }else{
-            $this->replyFailed('001','TCXCRQ','Credentials Required');
+            $this->replyFailed('400200','TCXCRQ','Credentials Required');
         }
         return response()->json($this->result)->setCallback($request->get('callback'));
     }

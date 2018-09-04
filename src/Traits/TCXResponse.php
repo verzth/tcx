@@ -14,12 +14,15 @@ use TCX;
 trait TCXResponse{
     protected $result;
     protected $debug;
+    protected $statusNumber = '000000';
+    protected $statusCode = 'XXXXXX';
+    protected $statusMessage = 'Unknown Error';
     public function __construct(){
         $this->result = new stdClass();
         $this->result->status = 0;
-        $this->result->status_number = '000';
-        $this->result->status_code = 'XXXXXX';
-        $this->result->status_message = 'Unknown Error';
+        $this->result->status_number = $this->statusNumber;
+        $this->result->status_code = $this->statusCode;
+        $this->result->status_message = $this->statusMessage;
         $this->debug = TCX::isDebug();
     }
 
