@@ -9,7 +9,7 @@
 namespace Verzth\TCX\Traits;
 
 use stdClass;
-use TCX;
+use Verzth\TCX\TCX;
 
 trait TCXResponse{
     protected $result;

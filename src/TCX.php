@@ -8,7 +8,7 @@
 
 namespace Verzth\TCX;
 
-use TCX as TCXFacade;
+use Verzth\TCX\Facades\TCX as TCXFacade;
 use Verzth\TCX\Models\TCXAccess;
 use Verzth\TCX\Models\TCXApplication;
 use Verzth\TCX\Models\TCXMKA;
