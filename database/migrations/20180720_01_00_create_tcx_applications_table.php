@@ -15,9 +15,9 @@ class TCXApplicationsTable extends Migration{
             $table->string("app_private",32)->nullable(false);
             $table->string("app_public",32)->nullable(false);
             $table->boolean("isActive")->nullable(false)->default(false);
-            $table->dateTime("activated_at");
+            $table->dateTime("activated_at")->nullable(true);
             $table->boolean("isSuspend")->nullable(false)->default(false);
-            $table->dateTime("suspended_at");
+            $table->dateTime("suspended_at")->nullable(true);
             $table->softDeletes();
             $table->timestamps();
 
