@@ -37,15 +37,15 @@ trait TCXResponse{
         }
     }
 
-    public function reply(int $status,string $number,string $code,string $message,$data=false){
+    public function reply(int $status,string $number,string $code,string $message,$data=null){
         $this->result->status = $status;
         $this->result->status_number = $number;
         $this->result->status_code = $code;
         $this->result->status_message = $message;
-        if($data)$this->result->data = $data;
+        if(!is_null($data))$this->result->data = $data;
     }
 
-    public function replySuccess(string $number,string $code,string $message,$data=false){
+    public function replySuccess(string $number,string $code,string $message,$data=null){
         $this->reply(1,$number,$code,$message,$data);
     }
     public function replyFailed(string $number,string $code,string $message){
