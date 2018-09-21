@@ -10,8 +10,8 @@
         "illuminate/http": "^5.5",
         "illuminate/database": "^5.5",
         "illuminate/routing": "^5.5",
-        "symfony/http-foundation": "^4",
-        "symfony/http-kernel": "^4",
+        "symfony/http-foundation": "^3",
+        "symfony/http-kernel": "^3"
     },
     "authors": [
         {
