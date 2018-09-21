@@ -14,21 +14,25 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
 
     Client need to specify type by sending "X-TCX-TYPE" header in every APIs request.
 
-2. Authorization Routes, TCX provide some routes which is can be used to get access token in TWTC type:
+2. How to generate credentials:
+    - 'app_pass' or 'X-TCX-APP-PASS', it can be generate by hashing plain of joined server master token, application public key,
+      and client dynamic token with SHA1. Client need to append the given dynamic token to hash result by splitting with colon (:)
+      symbol, then encrypt it with base64.
+    - 'token' or 'X-TCX-TOKEN', it's provided when Client authorizing to server, but you need to encrypt it with base64.
+
+3. Authorization Routes, TCX provide some routes which is can be used to get access token in TWTC type:
     - '/tcx/authorize':
         -- METHOD: POST
         -- Params:
             --- app_id: Client application id.
-            --- app_pass: Client password, it can be generate by hashing plain of joined server master token, application public key,
-                and client dynamic token with SHA1. Client need to append the given dynamic token to hash result by splitting with colon (:)
-                symbol, then encrypt it with base64.
+            --- app_pass: Client password.
     - '/tcx/reauthorize':
         -- METHOD: POST
         -- Params:
             --- app_id: Client application id.
-            --- token: Refresh Token, it's provided when Client authorizing to server, but you need to encrypt it with base64.
+            --- token: Refresh Token.
 
-3. Authentication Headers.
+4. Authentication Headers.
     - Type 'OWTC':
         -- 'X-TCX-TYPE': 'OWTC'.
         -- 'X-TCX-APP-ID': Client ID.
@@ -38,7 +42,7 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
         -- 'X-TCX-APP-ID': Client ID.
         -- 'X-TCX-APP-PASS': Client Password.
         -- 'X-TCX-TOKEN': Access Token, obtained by doing authorization.
-    - Type 'OWTC':
+    - Type 'FTC':
         -- 'X-TCX-TYPE': 'FTC'.
         -- 'X-TCX-APP-ID': Client ID.
         -- 'X-TCX-APP-PASS': Client Password.
