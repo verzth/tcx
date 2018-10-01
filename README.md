@@ -1,4 +1,4 @@
-# TCX - Authentication Module for Client-Server Transaction (One Way - Two Way).
+# TCX v2.0.0 - Authentication Module for Client-Server Transaction (One Way - Two Way).
 
 ### TCX is authentication module to secure API Server.
 
@@ -17,9 +17,35 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
     Client need to specify type by sending **X-TCX-TYPE** header in every APIs request.
 
 2. How to generate credentials:
-    - **app_pass** or **X-TCX-APP-PASS**, it can be generate by hashing plain of joined server master token, application public key,
+    - **app_pass** or **X-TCX-APP-PASS**, it can be generate by hashing plain of joined token (param, time, or none), application public key,
       and client dynamic token with SHA1. Client need to append the given dynamic token to hash result by splitting with **colon (:)**
       symbol, then encrypt it with base64.
+      - Param base
+      
+          Sample Parameter:
+          ```
+          abc=123
+          _xyz=789
+          foo=bar
+          def=456
+          bar=ghi
+          ```
+          Expected Token:
+          ```
+          _xyz=789&abc=123&bar=ghi&def=456&foo=bar
+          ```
+      - Time base
+        
+        ```
+        tcx_datetime=YYYYMMDDHHmmss
+        ```
+        
+        Sample
+        ```
+        tcx_datetime=20181230235959 // For 23:59:59, 30 December 2018
+        ```
+        
+      - None, just using application password and client dynamic token.
     - **token** or **X-TCX-TOKEN**, it's provided when Client authorizing to server, but you need to encrypt it with base64.
 
 3. Authorization Routes, TCX provide some routes which is can be used to get access token in TWTC type:

@@ -22,6 +22,7 @@ class TCXMiddleware{
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
      * @param $type 'all', 'owtc, 'twtc', 'ftc' or can be joined with |
+     * @param $token 'param', 'time', 'none'
      * @return mixed
      */
     public function handle($request, \Closure $next,$type='all'){
@@ -40,7 +41,7 @@ class TCXMiddleware{
                     if (TCX::checkAppId($tcxAppId)) {
                         if ($request->hasHeader(TCX::TCX_APP_PASS)) {
                             $tcxAppPass = $request->header(TCX::TCX_APP_PASS);
-                            if (!$_TCX_ = TCX::checkAppPass($tcxAppId, $tcxAppPass)) GOTO PASSFAIL;
+                            if (!$_TCX_ = TCX::checkAppPass($tcxAppId, $tcxAppPass,$request->all())) GOTO PASSFAIL;
                             switch ($tcxType) {
                                 case TCX::TCX_TYPE_OWTC :{
                                     PASSTHROUGH:
@@ -85,10 +86,10 @@ class TCXMiddleware{
                     $this->replyFailed('205000', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
-                return response()->json($this->result)->setCallback($request->get('callback'));
+                return response()->json($this->result)->setCallback($request->get('callback'))->setEncodings(JSON_PRETTY_PRINT);
             }else{
                 $this->replyFailed('705000','TCXREQ','TCX Authentication Required');
-                return response()->json($this->result)->setCallback($request->get('callback'));
+                return response()->json($this->result)->setCallback($request->get('callback'))->setEncodings(JSON_PRETTY_PRINT);
             }
         }else{
             return $next($request);

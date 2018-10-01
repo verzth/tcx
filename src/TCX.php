@@ -54,9 +54,6 @@ class TCX{
     public function getTokenType(){
         return $this->options['token']['type'];
     }
-    public function getTokenKey(){
-        return $this->options['token']['key'];
-    }
     public function getTokenTimeout(){
         return $this->options['token']['timeout'];
     }
@@ -71,19 +68,36 @@ class TCX{
         else return false;
     }
 
-    public static function checkAppPass($appId,$appPass){
+    public static function checkAppPass($appId,$appPass,array $params=[]){
         $find = TCXApplication::where('app_id',$appId)->active()->suspend(false)->first();
         if($find){
-            if(TCXFacade::getTokenType()=='key'){
-                $dePass = base64_decode($appPass);
-                $spPass = explode(":",$dePass);
-                if(count($spPass)==2){
-                    $_PASS_ = sha1(TCXFacade::getTokenKey() . $find->app_public . strtolower($spPass[1]));
-                    tcxLogFile($_PASS_);
-                    tcxLogFile(strtolower($spPass[0]));
-                    tcxLogFile(strtolower($spPass[1]));
+            $dePass = base64_decode($appPass);
+            $spPass = explode(":",$dePass);
+            tcxLogFile(strtolower($dePass));
+            tcxLogFile(strtolower($spPass[0]));
+            tcxLogFile(strtolower($spPass[1]));
+
+            if(count($spPass)==2){
+                if(TCXFacade::getTokenType()=='param'){
+                    ksort($params,SORT_STRING);
+                    $param = '';
+                    foreach($params as $k=>$v){
+                        $param.=$k.'='.$v.'&';
+                    }
+                    rtrim($param,'&');
+                    $_PASS_ = sha1($param. $find->app_public . strtolower($spPass[1]));
+                    tcxLogFile($param);
+                    if ($_PASS_ == strtolower($spPass[0])) return $find;
+                }elseif(TCXFacade::getTokenType()=='time'){
+                    if(array_key_exists('tcx_datetime',$params) && strlen($param=$params['tcx_datetime'])==14){
+                        $_PASS_ = sha1($param. $find->app_public . strtolower($spPass[1]));
+                        if ($_PASS_ == strtolower($spPass[0])) return $find;
+                    }
+                }elseif(TCXFacade::getTokenType()=='none'){
+                    $_PASS_ = sha1($find->app_public . strtolower($spPass[1]));
                     if ($_PASS_ == strtolower($spPass[0])) return $find;
                 }
+                if(isset($_PASS_))tcxLogFile($_PASS_);
             }
         }
         return false;
