@@ -22,7 +22,6 @@ class TCXMiddleware{
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
      * @param $type 'all', 'owtc, 'twtc', 'ftc' or can be joined with |
-     * @param $token 'param', 'time', 'none'
      * @return mixed
      */
     public function handle($request, \Closure $next,$type='all'){
@@ -61,7 +60,7 @@ class TCXMiddleware{
                                         GOTO PASSTHROUGH;
                                     }else{
                                         TOKENFAIL:
-                                        $this->replyFailed('505002', 'TCXTFX', 'TCX Token did not valid');
+                                        $this->replyFailed('505005', 'TCXTFX', 'TCX Token did not valid');
                                     }
                                 }break;
                                 case TCX::TCX_TYPE_FTC :{
@@ -71,19 +70,19 @@ class TCXMiddleware{
                                         GOTO PASSTHROUGH;
                                     }else{
                                         MASTERFAIL:
-                                        $this->replyFailed('505001', 'TCXMKF', 'TCX Master Key did not valid');
+                                        $this->replyFailed('505004', 'TCXMKF', 'TCX Master Key did not valid');
                                     }
                                 }break;
                             }
                         } else {
                             PASSFAIL:
-                            $this->replyFailed('505000', 'TCXPFX', 'TCX Pass did not match');
+                            $this->replyFailed('505003', 'TCXPFX', 'TCX Pass did not match');
                         }
                     } else {
-                        $this->replyFailed('405000', 'TCXAFX', 'TCX Authentication Failed');
+                        $this->replyFailed('405002', 'TCXAFX', 'TCX Authentication Failed');
                     }
                 }else{
-                    $this->replyFailed('205000', 'TCXRJC', 'TCX Authentication Rejected');
+                    $this->replyFailed('205001', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
                 return response()->json($this->result)->setCallback($request->get('callback'))->setEncodings(JSON_PRETTY_PRINT);

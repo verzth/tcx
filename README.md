@@ -75,3 +75,14 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
         - **'X-TCX-APP-ID'**: Client ID.
         - **'X-TCX-APP-PASS'**: Client Password.
         - **'X-TCX-TOKEN'**: Master Access Token.
+        
+5. Response Status.
+
+    | Status | Number | Code | Message | Note |
+    | :----: | :----: | :---: | ------- | -------- |
+    | 0 | 705000 | TCXREQ | TCX Authentication Required | Provide Authentication Header |
+    | 0 | 205001 | TCXRJC | TCX Authentication Rejected | X-TCX-Type not supported or disabled |
+    | 0 | 405002 | TCXAFX | TCX Authentication Failed | X-TCX-App-ID not found, invalid, or inactive |
+    | 0 | 505003 | TCXPFX | TCX Pass did not match | X-TCX-App-Pass not passed, crosscheck point 2 |
+    | 0 | 505004 | TCXMKF | TCX Master Key did not valid | Check the master access key (Only FTC) |
+    | 0 | 505005 | TCXTFX | TCX Token did not valid | Check the access key (Only TWTC) |
