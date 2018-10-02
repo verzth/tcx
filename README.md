@@ -86,3 +86,13 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
     | 0 | 505003 | TCXPFX | TCX Pass did not match | X-TCX-App-Pass not passed, crosscheck point 2 |
     | 0 | 505004 | TCXMKF | TCX Master Key did not valid | Check the master access key (Only FTC) |
     | 0 | 505005 | TCXTFX | TCX Token did not valid | Check the access key (Only TWTC) |
+    
+    Sample Response:
+    ```
+    {
+        "status": 0,
+        "status_code": "TCXREQ",
+        "status_number": "705000",
+        "status_message": "TCX Authentication Required"
+    }
+    ```
