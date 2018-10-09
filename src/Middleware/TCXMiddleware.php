@@ -85,10 +85,10 @@ class TCXMiddleware{
                     $this->replyFailed('205001', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
-                return response()->json($this->result)->setCallback($request->get('callback'))->setEncodings(JSON_PRETTY_PRINT);
+                return response()->json($this->result)->setCallback($request->get('callback'))->setEncodingOptions(JSON_PRETTY_PRINT);
             }else{
                 $this->replyFailed('705000','TCXREQ','TCX Authentication Required');
-                return response()->json($this->result)->setCallback($request->get('callback'))->setEncodings(JSON_PRETTY_PRINT);
+                return response()->json($this->result)->setCallback($request->get('callback'))->setEncodingOptions(JSON_PRETTY_PRINT);
             }
         }else{
             return $next($request);
