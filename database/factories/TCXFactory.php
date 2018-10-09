@@ -6,7 +6,7 @@ $factory->define(\Verzth\TCX\Models\TCXApplication::class, function (Faker\Gener
         'app_id' => $faker->unique()->userName,
         'app_private' => $faker->unique()->md5,
         'app_public' => $faker->unique()->md5,
-        'isActive' => false,
+        'isActive' => true,
         'activated_at' => \Carbon\Carbon::now(),
         'isSuspend' => false
     ];
