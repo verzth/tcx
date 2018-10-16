@@ -71,7 +71,7 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
             * **app_id**: Client application id.
             * **app_pass**: Client password.
         
-        - Sample **Fail** response
+        Sample **Fail** response
         
         ```
         {
@@ -82,7 +82,7 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
         }
         ```
         
-        - Sample **Success** response
+        Sample **Success** response
         
         ```
         {
@@ -108,7 +108,7 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
             * **app_id**: Client application id.
             * **token**: Refresh Token.
             
-        - Sample **Fail** response
+        Sample **Fail** response
         
         ```
         {
@@ -119,7 +119,7 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
         }
         ```
         
-        - Sample **Success** response
+        Sample **Success** response
         
         ```
         {
