@@ -48,19 +48,7 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
       - None, just using application password and client dynamic token.
     - **token** or **X-TCX-TOKEN**, it's provided when Client authorizing to server, but you need to encrypt it with base64.
 
-3. Authorization Routes, TCX provide some routes which is can be used to get access token in TWTC type:
-    - **/tcx/authorize**:
-        - METHOD: POST
-        - Params:
-            * **app_id**: Client application id.
-            * **app_pass**: Client password.
-    - **/tcx/reauthorize**:
-        - METHOD: POST
-        - Params:
-            * **app_id**: Client application id.
-            * **token**: Refresh Token.
-
-4. Authentication Headers.
+3. Authentication Headers.
     - Type **OWTC**:
         - **'X-TCX-TYPE'**: **'OWTC'**.
         - **'X-TCX-APP-ID'**: Client ID.
@@ -75,7 +63,77 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
         - **'X-TCX-APP-ID'**: Client ID.
         - **'X-TCX-APP-PASS'**: Client Password.
         - **'X-TCX-TOKEN'**: Master Access Token.
+
+4. Authorization Routes, TCX provide some routes which is can be used to get access token in TWTC type:
+    - **/tcx/authorize**:
+        - METHOD: POST
+        - Params:
+            * **app_id**: Client application id.
+            * **app_pass**: Client password.
         
+        - Sample **Fail** response
+        
+        ```
+        {
+            "status": 0,
+            "status_number": "002",
+            "status_code": "TCXAFX",
+            "status_message": "Authentication Failed"
+        }
+        ```
+        
+        - Sample **Success** response
+        
+        ```
+        {
+            "status": 1,
+            "status_number": "701",
+            "status_code": "TCXSSS",
+            "status_message": "Authentication Success",
+            "data": {
+                "token": "tfDBOa6q3PPTJFd0A8HWftw2sXMV1b5ue6v0intK",
+                "refresh": "fR0HLeL5qk0ZdtthI2ZsQLZx8BHEP2dSnVaQqkF5",
+                "expired_at": "2018-10-16 13:31:43"
+            }
+        }
+        ```
+        
+    - **/tcx/reauthorize**:
+        
+        Refresh token can be used to refresh your existing token, you can pass it to this service and your existing token
+        will be extended. Service will reply new refresh token for your existing token to be used in next refresh.
+        
+        - METHOD: POST
+        - Params:
+            * **app_id**: Client application id.
+            * **token**: Refresh Token.
+            
+        - Sample **Fail** response
+        
+        ```
+        {
+            "status": 0,
+            "status_number": "002",
+            "status_code": "TCXAFX",
+            "status_message": "Authentication Failed"
+        }
+        ```
+        
+        - Sample **Success** response
+        
+        ```
+        {
+            "status": 1,
+            "status_number": "701",
+            "status_code": "TCXSSS",
+            "status_message": "Token refreshed",
+            "data": {
+                "refresh": "04ITeVxWINOesyHH5Sxx57rN5uAW0ltCWN0cENxD",
+                "expired_at": "2018-10-16 13:36:42"
+            }
+        }
+        ```
+
 5. Response Status.
 
     | Status | Number | Code | Message | Note |

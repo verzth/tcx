@@ -30,7 +30,7 @@ class TCXServiceProvider extends ServiceProvider{
     {
         $this->mergeConfigFrom($this->configPath(), 'tcx');
 
-        $this->app->bind("tcx", function ($app) {
+        $this->app->bind("Verzth\TCX", function ($app) {
             $options = $app['config']->get('tcx');
             return new TCX($options);
         });

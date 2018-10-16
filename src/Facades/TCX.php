@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Facade;
 
 class TCX extends Facade{
     protected static function getFacadeAccessor(){
-        return "tcx";
+        return "Verzth\TCX";
     }
 }
