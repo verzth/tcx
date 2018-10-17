@@ -48,8 +48,8 @@ trait TCXResponse{
     public function replySuccess(string $number,string $code,string $message,$data=null){
         $this->reply(1,$number,$code,$message,$data);
     }
-    public function replyFailed(string $number,string $code,string $message){
-        $this->reply(0,$number,$code,$message);
+    public function replyFailed(string $number,string $code,string $message,$data=null){
+        $this->reply(0,$number,$code,$message,$data);
     }
 
     public function enableDebug(){
