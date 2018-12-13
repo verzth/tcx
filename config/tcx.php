@@ -22,8 +22,7 @@ return [
     'enable' => true,
     'method' => [
         'oneWay' => true,
-        'twoWay' => true,
-        'freeWay' => true
+        'twoWay' => true
     ],
     'debug' => true
 ];

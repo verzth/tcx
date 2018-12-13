@@ -47,9 +47,6 @@ class TCX{
     public function twoWay(){
         return $this->options['method']['twoWay'];
     }
-    public function freeWay(){
-        return $this->options['method']['freeWay'];
-    }
 
     public function getTokenType(){
         return $this->options['token']['type'];

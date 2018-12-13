@@ -1,4 +1,4 @@
-# TCX v2.0.0 - Authentication Module for Client-Server Transaction (One Way - Two Way).
+# TCX v3.0.0 - Authentication Module for Client-Server Transaction (One Way - Two Way).
 
 ### TCX is authentication module to secure API Server.
 
@@ -7,11 +7,11 @@ It's adapt OAuth2 scheme, but it use more simplify scheme which provide authenti
 1. Authentication Type, TCX support three ways authentication type:
     - **One Way Transaction Code (OWTC)**: Client only need to use **app_id** and **app_public** to access Server APIs.
     - **Two Way Transaction Code (TWTC)**: Client has to use **app_id** and **app_public** to get access token, then it can be used to access APIs.
-    - **Free Transaction Code (FTC)**: Client use master token to access APIs, without need to request token for every requests. You need to
+    - **Free Transaction Code (FTC)**: Client use master token to access APIs, without need to request token for every requests, it's specially design to by pass **TWTC** authentication. You need to
       generate Master token manually.
 
     To specify authentication for each APIs assign parameter in the middleware, use **or (|)** sign to specify multiple authentication or use
-    **all** to support all type (Supported type : **all**, **owtc**, **twtc**, **ftc**). By default, TCX will support all authentication if you didn't
+    **all** to support all type (Supported type : **all**, **owtc**, **twtc**). By default, TCX will support all authentication if you didn't
     specifying supported type.
 
     Client need to specify type by sending **X-TCX-TYPE** header in every APIs request.
