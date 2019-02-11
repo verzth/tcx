@@ -70,11 +70,11 @@ class TCX{
         if($find){
             $dePass = base64_decode($appPass);
             $spPass = explode(":",$dePass);
-            tcxLogFile(strtolower($dePass));
-            tcxLogFile(strtolower($spPass[0]));
-            tcxLogFile(strtolower($spPass[1]));
 
             if(count($spPass)==2){
+                tcxLogFile(strtolower($dePass));
+                tcxLogFile(strtolower($spPass[0]));
+                tcxLogFile(strtolower($spPass[1]));
                 if(TCXFacade::getTokenType()=='param'){
                     ksort($params,SORT_STRING);
                     $param = '';
