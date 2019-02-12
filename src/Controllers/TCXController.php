@@ -18,7 +18,7 @@ class TCXController extends Controller{
     use TCXResponse;
     public function authorize(Request $request){
         if($request->filled(['app_id','app_pass'])){
-            if($app=TCX::checkAppPass($request->get('app_id'),$request->get('app_pass'))){
+            if($app=TCX::checkAppPass($request->get('app_id'),$request->get('app_pass'),$request->all())){
                 try {
                     $token = $app->accesses()->create([
                         'token' => tcxRandomString(40),
