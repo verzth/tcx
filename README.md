@@ -4,6 +4,84 @@
 
 It's adapt OAuth2 scheme, but it use more simplify scheme which provide authentication for client-server without need to define scopes.
 
+#### Dependencies
+Laravel **>= 5.6**
+
+#### How to Install
+```
+composer require verzth/tcx
+```
+
+#### How to Use
+1. Add our ServiceProvider on your **config/app.php**.
+    ```
+    <?php
+    
+    return [
+        ...
+        ..
+        .
+        
+        'providers' => [
+            ...
+            Verzth\TCX\TCXServiceProvider::class,
+            ...
+        ]
+        
+        .
+        ..
+        ...
+    ]
+    ```
+
+2. Add TCX Middleware in your **app/Http/Kernel.php**.
+    - In every request.
+    ```
+        $middleware = [
+            ...
+            \Crown\Http\Middleware\TCXMiddleware::class,
+            ...
+        ]
+    ```
+    or
+    - In your API group middleware only. 
+    ```
+        $middlewareGroups = [
+            ...
+            'api' => [
+                ...
+                \Crown\Http\Middleware\TCXMiddleware::class,
+                ...
+            ]
+            ...
+        ]
+    ```
+    or
+    - In your route middleware, and you can add manually on your route.
+    ```
+        $routeMiddleware = [
+            ...
+            'v4.tcx' => \Crown\Http\Middleware\TCXMiddleware::class,
+            ...
+        ]
+    ```
+
+3. Publish our vendor with artisan command.
+    ```
+    php artisan vendor:publish --provider=Verzth\TCX\TCXServiceProvider
+    ```
+    
+4. Migrate our TCX DB. After migrate it, you will get 3 tables (tcx_applications, tcx_accesses, tcx_mkas).
+    ```
+    php artisan migrate
+    ```
+    
+5. We provide DB Seeder to produce sample data, just run code below to get the sample.
+    ```
+    php artisan db:seed --class=TCXApplicationsTableSeeder
+    ```
+
+#### Implementation
 1. Authentication Type, TCX support three ways authentication type:
     - **One Way Transaction Code (OWTC)**: Client only need to use **app_id** and **app_public** to access Server APIs.
     - **Two Way Transaction Code (TWTC)**: Client has to use **app_id** and **app_public** to get access token, then it can be used to access APIs.
