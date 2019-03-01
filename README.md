@@ -39,7 +39,7 @@ composer require verzth/tcx
     ```
         $middleware = [
             ...
-            \Crown\Http\Middleware\TCXMiddleware::class,
+            \Verzth\TCX\Middleware\TCXMiddleware::class,
             ...
         ]
     ```
@@ -50,7 +50,7 @@ composer require verzth/tcx
             ...
             'api' => [
                 ...
-                \Crown\Http\Middleware\TCXMiddleware::class,
+                \Verzth\TCX\Middleware\TCXMiddleware::class,
                 ...
             ]
             ...
@@ -61,7 +61,7 @@ composer require verzth/tcx
     ```
         $routeMiddleware = [
             ...
-            'v4.tcx' => \Crown\Http\Middleware\TCXMiddleware::class,
+            'tcx' => \Verzth\TCX\Middleware\TCXMiddleware::class,
             ...
         ]
     ```
