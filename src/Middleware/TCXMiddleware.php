@@ -6,14 +6,11 @@ use Illuminate\Http\Request;
 use Verzth\TCX\Traits\TCXResponse;
 
 class TCXMiddleware{
+    use TCXResponse;
     protected $except = [];
 
-    use TCXResponse {
-        TCXResponse::__construct as private __trConstruct;
-    }
-
     public function __construct(){
-        $this->__trConstruct();
+        $this->initializeTCXResponse();
     }
 
     /**
@@ -59,7 +56,7 @@ class TCXMiddleware{
                                         GOTO PASSTHROUGH;
                                     }else{
                                         TOKENFAIL:
-                                        $this->replyFailed('505005', 'TCXTFX', 'TCX Token did not valid');
+                                        $this->replyFailed('50FF005', 'TCXTFX', 'TCX Token did not valid');
                                     }
                                 }break;
                                 case TCX::TCX_TYPE_FTC :{
@@ -69,24 +66,24 @@ class TCXMiddleware{
                                         GOTO PASSTHROUGH;
                                     }else{
                                         MASTERFAIL:
-                                        $this->replyFailed('505004', 'TCXMKF', 'TCX Master Key did not valid');
+                                        $this->replyFailed('50FF004', 'TCXMKF', 'TCX Master Key did not valid');
                                     }
                                 }break;
                             }
                         } else {
                             PASSFAIL:
-                            $this->replyFailed('505003', 'TCXPFX', 'TCX Pass did not match');
+                            $this->replyFailed('50FF003', 'TCXPFX', 'TCX Pass did not match');
                         }
                     } else {
-                        $this->replyFailed('405002', 'TCXAFX', 'TCX Authentication Failed');
+                        $this->replyFailed('40FF002', 'TCXAFX', 'TCX Authentication Failed');
                     }
                 }else{
-                    $this->replyFailed('205001', 'TCXRJC', 'TCX Authentication Rejected');
+                    $this->replyFailed('20FF001', 'TCXRJC', 'TCX Authentication Rejected');
                     $this->debug('No TCX Type Found');
                 }
                 return response()->json($this->result)->setCallback($request->get('callback'))->setEncodingOptions(JSON_PRETTY_PRINT);
             }else{
-                $this->replyFailed('705000','TCXREQ','TCX Authentication Required');
+                $this->replyFailed('70FF000','TCXREQ','TCX Authentication Required');
                 return response()->json($this->result)->setCallback($request->get('callback'))->setEncodingOptions(JSON_PRETTY_PRINT);
             }
         }else{
