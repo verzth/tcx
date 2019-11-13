@@ -17,7 +17,7 @@ trait TCXResponse{
     protected $statusNumber = '000000';
     protected $statusCode = 'XXXXXX';
     protected $statusMessage = 'Unknown Error';
-    public function __construct(){
+    public function initializeTCXResponse(){
         $this->result = new stdClass();
         $this->result->status = 0;
         $this->result->status_number = $this->statusNumber;
