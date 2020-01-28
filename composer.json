@@ -6,12 +6,12 @@
     "type": "library",
     "require": {
         "php": "^7.0",
-        "illuminate/support": "^5.6",
-        "illuminate/http": "^5.6",
-        "illuminate/database": "^5.6",
-        "illuminate/routing": "^5.6",
-        "symfony/http-foundation": "^4",
-        "symfony/http-kernel": "^4"
+        "illuminate/support": "^5.6|^6.0|^7.0",
+        "illuminate/http": "^5.6|^6.0|^7.0",
+        "illuminate/database": "^5.6|^6.0|^7.0",
+        "illuminate/routing": "^5.6|^6.0|^7.0",
+        "symfony/http-foundation": "^4|^5.0",
+        "symfony/http-kernel": "^4|^5.0"
     },
     "authors": [
         {
