@@ -14,70 +14,83 @@ composer require verzth/tcx
 
 #### How to Use
 1. Add our ServiceProvider on your **config/app.php**.
-    ```
-    <?php
-    
+    ```php
     return [
-        ...
-        ..
-        .
+        //...
+        //..
+        //.
         
         'providers' => [
-            ...
+            // ...
             Verzth\TCX\TCXServiceProvider::class,
             ...
         ]
         
-        .
-        ..
-        ...
-    ]
+        //.
+        //..
+        //...
+    ];
     ```
 
 2. Add TCX Middleware in your **app/Http/Kernel.php**.
     - In every request.
-    ```
+    ```php
         $middleware = [
-            ...
+            //...
             \Verzth\TCX\Middleware\TCXMiddleware::class,
-            ...
-        ]
+            //...
+        ];
     ```
     or
     - In your API group middleware only. 
-    ```
+    ```php
         $middlewareGroups = [
-            ...
+            //...
             'api' => [
-                ...
+                //...
                 \Verzth\TCX\Middleware\TCXMiddleware::class,
-                ...
+                //...
             ]
-            ...
-        ]
+            //...
+        ];
     ```
     or
     - In your route middleware, and you can add manually on your route.
-    ```
+    ```php
         $routeMiddleware = [
-            ...
+            //...
             'tcx' => \Verzth\TCX\Middleware\TCXMiddleware::class,
-            ...
-        ]
+            //...
+        ];
     ```
 
 3. Publish our vendor with artisan command.
-    ```
+    ```shell script
     php artisan vendor:publish --provider=Verzth\TCX\TCXServiceProvider
     ```
     
 4. Migrate our TCX DB. After migrate it, you will get 3 tables (tcx_applications, tcx_accesses, tcx_mkas).
-    ```
+    ```shell script
     php artisan migrate
     ```
-    
-5. We provide DB Seeder to produce sample data, just run code below to get the sample.
+   
+5. Refresh the autoload with below command.
+    ```shell script
+    composer dump-autoload
     ```
+   
+6. We provide seeder to generate sample data. 
+   Simply put below code to file database/seeds/DatabaseSeeder.php, inside run() function.
+    ```php
+    $this->call(TCXApplicationsTableSeeder::class);
+    ```
+   then run below script on your shell/command prompt.
+   ```shell script
+   composer db:seed
+   ```
+    
+7. Or just run below script (skip step 6) to generate the sample data.
+    ```shell script
     php artisan db:seed --class=TCXApplicationsTableSeeder
     ```
 
