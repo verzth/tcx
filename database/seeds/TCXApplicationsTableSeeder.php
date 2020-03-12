@@ -7,14 +7,34 @@
  */
 
 use Illuminate\Database\Seeder;
-use Verzth\TCX\Models\TCXApplication;
 
 class TCXApplicationsTableSeeder extends Seeder{
     public function run(){
-        factory(TCXApplication::class,8)->states('active','nonactive','suspended')->create()
+        factory(\Verzth\TCX\Models\TCXApplication::class,3)->states('active')->create()
             ->each(function($app){
-                factory(\Verzth\TCX\Models\TCXMKA::class,3)->states('valid','expired')->create([
-                    'application_id'=>$app->id
+                factory(\Verzth\TCX\Models\TCXMKA::class)->states('valid')->create([
+                    'application_id' => $app->id
+                ]);
+                factory(\Verzth\TCX\Models\TCXMKA::class)->states('expired')->create([
+                    'application_id' => $app->id
+                ]);
+            });
+        factory(\Verzth\TCX\Models\TCXApplication::class,1)->states('nonactive')->create()
+            ->each(function($app){
+                factory(\Verzth\TCX\Models\TCXMKA::class)->states('valid')->create([
+                    'application_id' => $app->id
+                ]);
+                factory(\Verzth\TCX\Models\TCXMKA::class)->states('expired')->create([
+                    'application_id' => $app->id
+                ]);
+            });
+        factory(\Verzth\TCX\Models\TCXApplication::class,2)->states('suspended')->create()
+            ->each(function($app){
+                factory(\Verzth\TCX\Models\TCXMKA::class)->states('valid')->create([
+                    'application_id' => $app->id
+                ]);
+                factory(\Verzth\TCX\Models\TCXMKA::class)->states('expired')->create([
+                    'application_id' => $app->id
                 ]);
             });
     }
