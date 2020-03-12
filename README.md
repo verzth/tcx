@@ -1,4 +1,4 @@
-# TCX v3.0.0 - Authentication Module for Client-Server Transaction (One Way - Two Way).
+# TCX v4.0.0 - Authentication Module for Client-Server Transaction (One Way - Two Way).
 
 ### TCX is authentication module to secure API Server.
 

@@ -16,7 +16,7 @@ return [
 
     'masterKey' => 'masterKey', //REPLACE IT WITH YOURS
     'token' => [
-        'type' => 'param', // 'param', 'time', 'none'
+        'type' => 'none', // 'param', 'time', 'none'
         'timeout' => 7200, // In seconds, default 7200 seconds or 2 hours
     ],
     'enable' => true,
