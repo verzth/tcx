@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TCXApplicationsTable extends Migration{
+class TCXApplicationsTable201907200100 extends Migration{
     private static $table = "tcx_applications";
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){

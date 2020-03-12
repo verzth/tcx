@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TCXAccessesTable extends Migration{
+class TCXAccessesTable201907200200 extends Migration{
     private static $table = "tcx_accesses";
     public function up(){
         Schema::create(self::$table,function (Blueprint $table){
