@@ -18,7 +18,6 @@ class TCXController extends Controller{
     use TCXResponse;
     public function __construct()
     {
-        parent::__construct();
         $this->initializeTCXResponse();
     }
 
