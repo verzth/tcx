@@ -16,6 +16,12 @@ use Verzth\TCX\Traits\TCXResponse;
 
 class TCXController extends Controller{
     use TCXResponse;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->initializeTCXResponse();
+    }
+
     public function authorize(Request $request){
         if($request->filled(['app_id','app_pass'])){
             if($app=TCX::checkAppPass($request->get('app_id'),$request->get('app_pass'),$request->all())){
